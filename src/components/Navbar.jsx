@@ -116,6 +116,9 @@ const Navbar = () => {
                     <Link to="/register" onClick={() => setIsOpen(false)} className="btn-primary" style={{ textAlign: 'center', justifyContent: 'center' }}>
                         Register Now
                     </Link>
+                    <Link to="/admin" onClick={() => setIsOpen(false)} className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center' }}>
+                        Admin Login
+                    </Link>
                 </div>
             )}
 

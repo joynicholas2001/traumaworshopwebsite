@@ -162,3 +162,159 @@ select:focus {
   border-color: var(--primary-blue);
   box-shadow: 0 0 0 3px var(--sky-blue);
 }
+
+/* Admin Dashboard Layout */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  width: 260px;
+  background: var(--white);
+  border-right: 1px solid #E5E7EB;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  z-index: 50;
+  transition: transform 0.3s ease;
+}
+
+.admin-main {
+  margin-left: 260px;
+  flex: 1;
+  padding: 40px;
+  background: var(--light-grey);
+  transition: margin-left 0.3s ease;
+  min-height: 100vh;
+}
+
+.admin-mobile-toggle {
+  display: none;
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 60;
+  background: var(--white);
+  border: 1px solid #E5E7EB;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: var(--text-dark);
+}
+
+.admin-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+  }
+
+  .admin-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .admin-main {
+    margin-left: 0;
+    padding: 80px 20px 20px 20px;
+    /* Added top padding for the toggle button space usually, or just general spacing */
+  }
+
+  .admin-mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .admin-overlay.open {
+    display: block;
+  }
+
+  /* Responsive Table */
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tbody tr {
+    background: var(--white);
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  td {
+    border: none;
+    position: relative;
+    padding-left: 45% !important;
+    /* Reduced from 50% to give more space */
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    word-break: break-word;
+    /* Handle long words/emails */
+    flex-wrap: wrap;
+    /* Allow wrapping if needed */
+  }
+
+  td:before {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 12px;
+    width: 40%;
+    /* Adjusted width */
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: 600;
+    color: var(--text-grey);
+    content: attr(data-label);
+    display: block;
+  }
+
+  /* Specific adjustments for check box cell */
+  td:first-child {
+    padding-left: 12px !important;
+    display: flex;
+    justify-content: flex-end;
+    /* Align checkbox to right or keep left */
+  }
+
+  td:first-child:before {
+    display: none;
+  }
+
+  /* Action buttons container */
+  td:last-child {
+    padding-left: 12px !important;
+    justify-content: flex-end;
+  }
+
+  td:last-child:before {
+    display: none;
+  }
+}

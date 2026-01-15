@@ -59,7 +59,7 @@ const Settings = () => {
 
             <div className="card" style={{ maxWidth: '800px' }}>
                 <form onSubmit={handleSave}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '20px' }}>
                         <div>
                             <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>Workshop Title</label>
                             <input type="text" name="title" value={settings.title} onChange={handleChange} placeholder="Online Trauma Sensitization Workshop" />

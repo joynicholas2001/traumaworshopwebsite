@@ -122,9 +122,9 @@ const Home = () => {
             {/* Topics Section */}
             <section style={{ padding: '60px 0' }}>
                 <div className="container">
-                    <div className="grid-responsive" style={{ alignItems: 'center' }}>
+                    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
                         <div>
-                            <h2 style={{ fontSize: '36px', marginBottom: '24px' }}>What You Will Learn</h2>
+                            <h2 style={{ fontSize: '36px', marginBottom: '24px', textAlign: 'center' }}>What You Will Learn</h2>
                             <ul style={{ listStyle: 'none' }}>
                                 {[
                                     "Understanding the impact of trauma on individuals",
@@ -139,19 +139,6 @@ const Home = () => {
                                     </li>
                                 ))}
                             </ul>
-                        </div>
-                        <div style={{
-                            background: 'var(--light-grey)',
-                            height: '400px',
-                            borderRadius: 'var(--radius-lg)',
-                            backgroundImage: workshopDetails.bannerUrl ? `url(${workshopDetails.bannerUrl})` : 'none',
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}>
-                            {!workshopDetails.bannerUrl && <p style={{ color: 'var(--text-grey)' }}>Workshop Banner</p>}
                         </div>
                     </div>
                 </div>

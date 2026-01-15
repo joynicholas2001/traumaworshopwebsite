@@ -145,9 +145,9 @@ const Registrants = () => {
 
     return (
         <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', gap: '16px' }}>
                 <h2 style={{ fontSize: '24px' }}>Registrants ({registrants.length})</h2>
-                <div style={{ display: 'flex', gap: '12px' }}>
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                     <button onClick={handleExport} className="btn-secondary" style={{ padding: '8px 16px', fontSize: '14px', display: 'flex', gap: '8px', alignItems: 'center' }}>
                         <Download size={16} /> Export CSV
                     </button>
@@ -203,17 +203,19 @@ const Registrants = () => {
                                                 {selectedIds.includes(r.id) ? <CheckSquare size={20} color="var(--primary-blue)" /> : <Square size={20} color="var(--text-grey)" />}
                                             </div>
                                         </td>
-                                        <td style={{ padding: '12px', fontWeight: 500 }}>{r.fullName}</td>
-                                        <td style={{ padding: '12px', fontSize: '14px' }}>
-                                            <div>{r.email}</div>
-                                            <div style={{ color: 'var(--text-grey)' }}>{r.whatsappNumber}</div>
+                                        <td data-label="Name" style={{ padding: '12px', fontWeight: 500 }}>{r.fullName}</td>
+                                        <td data-label="Contact" style={{ padding: '12px', fontSize: '14px' }}>
+                                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                <div>{r.email}</div>
+                                                <div style={{ color: 'var(--text-grey)' }}>{r.whatsappNumber}</div>
+                                            </div>
                                         </td>
-                                        <td style={{ padding: '12px' }}>{r.church}</td>
-                                        <td style={{ padding: '12px', color: 'var(--text-grey)', fontSize: '14px' }}>
+                                        <td data-label="Church" style={{ padding: '12px' }}>{r.church}</td>
+                                        <td data-label="Reg. Date" style={{ padding: '12px', color: 'var(--text-grey)', fontSize: '14px' }}>
                                             {r.createdAt?.toDate ? r.createdAt.toDate().toLocaleDateString() : 'Just now'}
                                         </td>
-                                        <td style={{ padding: '12px' }}>
-                                            <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+                                        <td data-label="Actions" style={{ padding: '12px' }}>
+                                            <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
                                                 <button
                                                     onClick={() => openWhatsApp(r.whatsappNumber, r.fullName)}
                                                     style={{ background: 'transparent', color: '#25D366', padding: '4px', border: 'none', cursor: 'pointer' }}

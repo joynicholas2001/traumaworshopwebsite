@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { useNavigate, useLocation, Link, Routes, Route } from 'react-router-dom';
-import { Users, Settings as SettingsIcon, MessageSquare, LogOut, LayoutDashboard } from 'lucide-react';
+import { Users, Settings as SettingsIcon, MessageSquare, LogOut, LayoutDashboard, Menu, X } from 'lucide-react';
 import { auth } from '../firebase/firebase';
 import { signOut } from 'firebase/auth';
 import { toast } from 'react-toastify';
@@ -11,6 +12,7 @@ import WhatsAppSettings from './components/WhatsAppSettings';
 const AdminDashboard = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     const handleLogout = async () => {
         try {
@@ -36,18 +38,23 @@ const AdminDashboard = () => {
     };
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh' }}>
+        <div className="admin-container">
+            {/* Mobile Overlay */}
+            <div
+                className={`admin-overlay ${isSidebarOpen ? 'open' : ''}`}
+                onClick={() => setIsSidebarOpen(false)}
+            />
+
+            {/* Mobile Toggle */}
+            <button
+                className="admin-mobile-toggle"
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            >
+                {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+
             {/* Sidebar */}
-            <aside style={{
-                width: '260px',
-                background: 'var(--white)',
-                borderRight: '1px solid #E5E7EB',
-                display: 'flex',
-                flexDirection: 'column',
-                position: 'fixed',
-                height: '100vh',
-                zIndex: 50
-            }}>
+            <aside className={`admin-sidebar ${isSidebarOpen ? 'open' : ''}`}>
                 <div style={{ padding: '24px', borderBottom: '1px solid #E5E7EB', display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <div style={{
                         width: '32px', height: '32px', background: 'var(--primary-blue)', borderRadius: '6px',
@@ -61,6 +68,7 @@ const AdminDashboard = () => {
                         <Link
                             key={item.path}
                             to={item.path}
+                            onClick={() => setIsSidebarOpen(false)}
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -95,7 +103,7 @@ const AdminDashboard = () => {
             </aside>
 
             {/* Main Content */}
-            <main style={{ marginLeft: '260px', flex: 1, padding: '40px', background: 'var(--light-grey)' }}>
+            <main className="admin-main">
                 <div className="container">
                     <Routes>
                         <Route path="/" element={<Registrants />} />

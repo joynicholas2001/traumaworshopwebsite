@@ -98,7 +98,7 @@ const WhatsAppSettings = () => {
                         <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>API Token</label>
                         <input type="password" name="apiToken" value={config.apiToken} onChange={handleChange} placeholder="EAAG..." />
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '16px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '16px' }}>
                         <div>
                             <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>Phone Number ID</label>
                             <input type="text" name="phoneNumberId" value={config.phoneNumberId} onChange={handleChange} placeholder="105..." />
