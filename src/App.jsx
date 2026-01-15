@@ -33,11 +33,11 @@ function App() {
 
     return (
         <div className="app-container">
+            <Navbar />
             <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={
                     <>
-                        <Navbar />
                         <Home />
                         <Footer />
                     </>
@@ -45,7 +45,6 @@ function App() {
 
                 <Route path="/register" element={
                     <>
-                        <Navbar />
                         <Register />
                         <Footer />
                     </>
@@ -53,7 +52,6 @@ function App() {
 
                 <Route path="/thank-you" element={
                     <>
-                        <Navbar />
                         <ThankYou />
                         <Footer />
                     </>

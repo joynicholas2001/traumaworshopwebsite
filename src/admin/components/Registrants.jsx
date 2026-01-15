@@ -175,7 +175,7 @@ const Registrants = () => {
                 </div>
 
                 <div style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '800px' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead>
                             <tr style={{ background: 'var(--light-grey)', textAlign: 'left' }}>
                                 <th style={{ padding: '12px', width: '40px' }}>

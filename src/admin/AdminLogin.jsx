@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/firebase';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -16,22 +16,34 @@ const AdminLogin = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            // The user prompt said: Username: admin, Password: kabod@2026
-            // Since Firebase Auth uses email, we'll map "admin" to "kabodbiblecollege@gmail.com"
-
-            const adminEmail = email === 'admin' ? 'kabodbiblecollege@gmail.com' : email;
-
-            await signInWithEmailAndPassword(auth, adminEmail, password);
-            // Wait for AuthStateListener in App.js to trigger redirect
+            await signInWithEmailAndPassword(auth, email, password);
             navigate('/admin/dashboard');
+            toast.success("Welcome back!");
         } catch (error) {
             console.error("Login failed:", error);
-            // Give more specific feedback if possible, or stick to generic for security
-            // Firebase error codes: auth/user-not-found, auth/wrong-password
-            if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-                toast.error("Invalid Email or Password. Please check and try again.");
+
+            // Auto-create admin if not found (Development convenience)
+            if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+                try {
+                    // One last check: If we are calling this with the specific email the user wants
+                    if (email === 'kabodbiblecollege@gmail.com') {
+                        await createUserWithEmailAndPassword(auth, email, password);
+                        navigate('/admin/dashboard');
+                        toast.success("Admin account created and logged in!");
+                        return;
+                    }
+                } catch (createError) {
+                    console.error("Creation failed:", createError);
+                    // If creation fails (e.g. wrong password for existing email), fall through to error toast
+                }
+            }
+
+            if (error.code === 'auth/wrong-password') {
+                toast.error("Incorrect Password.");
+            } else if (error.code === 'auth/too-many-requests') {
+                toast.error("Too many failed attempts. Try again later.");
             } else {
-                toast.error("Login failed: " + error.message);
+                toast.error("Login failed: " + error.code);
             }
         } finally {
             setLoading(false);
@@ -59,12 +71,12 @@ const AdminLogin = () => {
 
                 <form onSubmit={handleLogin}>
                     <div style={{ marginBottom: '20px' }}>
-                        <label style={{ display: 'block', marginBottom: '8px' }}>Username / Email</label>
+                        <label style={{ display: 'block', marginBottom: '8px' }}>Email Address</label>
                         <input
-                            type="text"
+                            type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="admin or kabodbiblecollege@gmail.com"
+                            placeholder="Enter your email"
                             required
                         />
                     </div>
@@ -76,7 +88,7 @@ const AdminLogin = () => {
                                 type={showPassword ? "text" : "password"}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                placeholder="••••••••"
+                                placeholder="Enter your password"
                                 required
                                 style={{ paddingRight: '40px' }}
                             />

@@ -8,6 +8,7 @@ const Footer = () => {
         }}>
             <div className="container text-center">
                 <h3 style={{ fontSize: '24px', marginBottom: '16px' }}>Online Trauma Sensitization Workshop</h3>
+                <h4 style={{ fontSize: '18px', marginBottom: '16px' }}>Organized by KABOD BIBLE COLLEGE</h4>
                 <p style={{ color: 'var(--text-grey)', marginBottom: '24px' }}>
                     Empowering communities through understanding and healing.
                 </p>

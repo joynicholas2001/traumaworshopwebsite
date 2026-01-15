@@ -176,7 +176,9 @@ select:focus {
   display: flex;
   flex-direction: column;
   position: fixed;
-  height: 100vh;
+  top: 70px;
+  /* Navbar height */
+  height: calc(100vh - 70px);
   z-index: 50;
   transition: transform 0.3s ease;
 }
@@ -187,13 +189,25 @@ select:focus {
   padding: 40px;
   background: var(--light-grey);
   transition: margin-left 0.3s ease;
-  min-height: 100vh;
+  min-height: calc(100vh - 70px);
+  margin-top: 0;
+  /* Navbar is sticky, so main content flows normally but we might need padding if Navbar was fixed. 
+                   Navbar is sticky, so it takes space in flow? 
+                   Navbar has `position: sticky`. It takes up space in the document flow. 
+                   So `admin-container` starts AFTER navbar. 
+                   So `admin-sidebar` `top: 70px` is WRONG if it's relative to viewport but container is below navbar?
+                   Wait. `position: fixed` is relative to viewport.
+                   So `top: 70px` is correct if Navbar is at top.
+                   But if Navbar scrolls away? `sticky` stays at top.
+                   So `top: 70px` is correct.
+                   */
 }
 
 .admin-mobile-toggle {
   display: none;
   position: fixed;
-  top: 16px;
+  top: 86px;
+  /* 70px Navbar + 16px */
   right: 16px;
   z-index: 60;
   background: var(--white);
@@ -268,29 +282,29 @@ select:focus {
   td {
     border: none;
     position: relative;
-    padding-left: 45% !important;
-    /* Reduced from 50% to give more space */
-    padding-top: 8px !important;
-    padding-bottom: 8px !important;
+    padding: 12px 12px 12px 12px !important;
     display: flex;
-    align-items: center;
-    min-height: 40px;
-    word-break: break-word;
-    /* Handle long words/emails */
-    flex-wrap: wrap;
-    /* Allow wrapping if needed */
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: auto;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  td:last-child {
+    border-bottom: none;
   }
 
   td:before {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 12px;
-    width: 40%;
-    /* Adjusted width */
-    padding-right: 10px;
+    position: static;
+    transform: none;
+    width: 100%;
+    padding-right: 0;
+    margin-bottom: 4px;
     white-space: nowrap;
     font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
     color: var(--text-grey);
     content: attr(data-label);
     display: block;
