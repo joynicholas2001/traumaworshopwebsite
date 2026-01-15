@@ -6,10 +6,10 @@ import { doc, getDoc } from 'firebase/firestore';
 
 const Home = () => {
     const [workshopDetails, setWorkshopDetails] = useState({
-        title: "Online Trauma Sensitization Workshop",
+        title: "Trauma Workshop",
         date: "24-01-2025",
         time: "08:30 PM",
-        bannerUrl: null // Could be a placeholder image URL
+        bannerUrl: null
     });
 
     useEffect(() => {
@@ -51,7 +51,7 @@ const Home = () => {
                         }}>
                             Join Us Online
                         </span>
-                        <h1 style={{ fontSize: '48px', lineHeight: 1.2, marginBottom: '24px' }}>
+                        <h1 className="hero-title">
                             {workshopDetails.title}
                         </h1>
                         <p style={{ fontSize: '18px', color: 'var(--text-grey)', marginBottom: '32px' }}>
