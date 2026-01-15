@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useLocation, Link, Routes, Route } from 'react-router-dom';
-import { Users, Settings as SettingsIcon, MessageSquare, LogOut, LayoutDashboard, Menu, X } from 'lucide-react';
+import { Users, Settings as SettingsIcon, MessageSquare, LogOut, LayoutDashboard, Menu, X, Send } from 'lucide-react';
 import { auth } from '../firebase/firebase';
 import { signOut } from 'firebase/auth';
 import { toast } from 'react-toastify';
@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import Registrants from './components/Registrants';
 import Settings from './components/Settings';
 import WhatsAppSettings from './components/WhatsAppSettings';
+import ReminderManager from './components/ReminderManager';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -26,6 +27,7 @@ const AdminDashboard = () => {
 
     const navItems = [
         { name: 'Registrants', path: '/admin/dashboard', icon: <Users size={20} /> },
+        { name: 'Bulk Email', path: '/admin/dashboard/bulk-email', icon: <Send size={20} /> },
         { name: 'Settings', path: '/admin/dashboard/settings', icon: <SettingsIcon size={20} /> },
         { name: 'WhatsApp', path: '/admin/dashboard/whatsapp', icon: <MessageSquare size={20} /> },
     ];
@@ -107,6 +109,7 @@ const AdminDashboard = () => {
                 <div className="container">
                     <Routes>
                         <Route path="/" element={<Registrants />} />
+                        <Route path="/bulk-email" element={<ReminderManager />} />
                         <Route path="/settings" element={<Settings />} />
                         <Route path="/whatsapp" element={<WhatsAppSettings />} />
                     </Routes>

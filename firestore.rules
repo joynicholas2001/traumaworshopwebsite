@@ -2,21 +2,27 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
+    // Settings Collection
+    // - 'workshop' doc is public-read for the Home Page details.
+    // - All other docs (like 'whatsapp') are Admin only.
+    // - Only Admin can write/update.
+    match /settings/{document} {
+      allow read: if document == 'workshop' || request.auth != null;
+      allow write: if request.auth != null;
+    }
+
     // Registrants Collection
-    // - allow create: Public (so anyone can register)
-    // - allow read, update, delete: Authenticated Admins only
+    // - Anyone can register (Create).
+    // - Only Admin can see the list, update status, or delete.
     match /registrants/{registrant} {
       allow create: if true;
       allow read, update, delete: if request.auth != null;
     }
 
-    // Settings Collection
-    // - Public Read: Allowed ONLY for 'workshop' settings (Title, Date, Banner)
-    // - Admin Read: Allowed for ALL settings (including 'whatsapp' with API keys)
-    // - Admin Write: Allowed for ALL settings
-    match /settings/{docId} {
-      allow read: if docId == 'workshop' || request.auth != null;
-      allow write: if request.auth != null;
+    // Reminder Logs
+    // - Only Admin can track or view reminder history.
+    match /reminder_logs/{log} {
+      allow read, write: if request.auth != null;
     }
   }
 }

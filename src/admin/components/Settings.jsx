@@ -84,7 +84,26 @@ const Settings = () => {
                     </div>
 
                     <div style={{ borderTop: '1px solid #E5E7EB', margin: '24px 0', padding: '24px 0 0 0' }}>
-                        <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>Email Template</h3>
+                        <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>Email Configuration (EmailJS)</h3>
+                        <p style={{ fontSize: '14px', color: 'var(--text-grey)', marginBottom: '16px' }}>
+                            Visit <a href="https://www.emailjs.com/" target="_blank" rel="noreferrer">emailjs.com</a> to get your free API keys.
+                        </p>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '20px' }}>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>Service ID</label>
+                                <input type="text" name="emailjsServiceId" value={settings.emailjsServiceId || ''} onChange={handleChange} placeholder="service_xxxx" />
+                            </div>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>Template ID</label>
+                                <input type="text" name="emailjsTemplateId" value={settings.emailjsTemplateId || ''} onChange={handleChange} placeholder="template_xxxx" />
+                            </div>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>Public Key (User ID)</label>
+                                <input type="text" name="emailjsPublicKey" value={settings.emailjsPublicKey || ''} onChange={handleChange} placeholder="user_xxxx / XXXXXX" />
+                            </div>
+                        </div>
+
+                        <h3 style={{ fontSize: '18px', marginBottom: '16px' }}>Default Email Content</h3>
                         <div style={{ marginBottom: '20px' }}>
                             <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>Email Subject</label>
                             <input type="text" name="emailSubject" value={settings.emailSubject} onChange={handleChange} />
